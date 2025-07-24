@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/personapi" name="PersonAPI" xmlns="http://ws.apache.org/ns/synapse">
+    
+    <!-- Recurso GET para retornar uma saudação simples -->
+    <resource methods="GET" uri-template="/">
+        <inSequence>
+            <payloadFactory media-type="json" template-type="default">
+                <format>{
+                    "greetings": "Welcome to the Person API!"
+                }</format>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <faultSequence/>
+    </resource>
+
+    <!-- Recurso POST para processar o JSON de uma pessoa -->
+    <resource methods="POST" uri-template="/person">
+        <inSequence>
+            <!-- Passar o payload completo sem modificações -->
+            <payloadFactory media-type="json" template-type="default">
+                <format>${payload}</format>  <!-- Retorna o payload exatamente como recebido -->
+            </payloadFactory>
+
+            <!-- Responder com o payload completo recebido -->
+            <respond/>
+        </inSequence>
+        <faultSequence/>
+    </resource>
+
+</api>
